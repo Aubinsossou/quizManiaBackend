@@ -55,11 +55,14 @@ class QuestionsController extends Controller
     public function edit($id)
     {
         $question = Questions::find($id);
+        $questionReponse = Questions::with("reponses")->find($id);
+
         if ($question) {
             return response()->json([
                 "status" => "Success",
                 "message" => "Question retrouver",
                 "data" => $question,
+                "questionReponse" => $questionReponse
             ]);
         }
         return response()->json([

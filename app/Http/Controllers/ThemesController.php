@@ -15,11 +15,14 @@ class ThemesController extends Controller
     public function index()
     {
         $themes = Themes::with("questions")->get();
+$themeQuestionReponse = Themes::with('questions.reponses')->get();
+
         if($themes){
             return response()->json([
                 "status" => "Success",
                 "message" => "listes des themes trouver",
                 "data" => $themes,
+                "themeQuestionReponse" => $themeQuestionReponse,
             ]);
         }
          return response()->json([

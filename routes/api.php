@@ -13,6 +13,7 @@ Route::get('/user', function (Request $request) {
 
 Route::post("/register", [UserController::class, "register"]);
 Route::post("/login", [UserController::class, "login"]);
+Route::delete("/logout", [UserController::class, "logout"])->middleware('auth:api');
 
 
 
@@ -23,24 +24,24 @@ Route::prefix("/v1/admin")->group(function () {
     Route::prefix("/theme")->controller(ThemesController::class)->group(function () {
         Route::get("/index", "index");
         Route::get("/indexThemeId/{id}", "indexThemeId");
-        Route::post("/store", "store");
-        Route::get("/edit/{id}", "edit");
-        Route::post("/update/{id}", "update");
-        Route::delete("/destroy/{id}", "destroy");
+        Route::post("/store", "store")->middleware("auth:api");
+        Route::get("/edit/{id}", "edit")->middleware("auth:api");
+        Route::post("/update/{id}", "update")->middleware("auth:api");
+        Route::delete("/destroy/{id}", "destroy")->middleware("auth:api");
     });
 
     Route::prefix("/question")->controller(QuestionsController::class)->group(function () {
         Route::get("/index", "index");
-        Route::post("/store", "store");
-        Route::get("/edit/{id}", "edit");
-        Route::post("/update/{id}", "update");
-        Route::delete("/destroy/{id}", "destroy");
+        Route::post("/store", "store")->middleware("auth:api");
+        Route::get("/edit/{id}", "edit")->middleware("auth:api");
+        Route::post("/update/{id}", "update")->middleware("auth:api");
+        Route::delete("/destroy/{id}", "destroy")->middleware("auth:api");
     });
     Route::prefix("/reponse")->controller(ReponsesController::class)->group(function () {
         Route::get("/index", "index");
-        Route::post("/store", "store");
-        Route::get("/edit/{id}", "edit");
-        Route::post("/update/{id}", "update");
-        Route::delete("/destroy/{id}", "destroy");
+        Route::post("/store", "store")->middleware("auth:api");
+        Route::get("/edit/{id}", "edit")->middleware("auth:api");
+        Route::post("/update/{id}", "update")->middleware("auth:api");
+        Route::delete("/destroy/{id}", "destroy")->middleware("auth:api");
     });
 });

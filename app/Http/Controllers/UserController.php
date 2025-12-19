@@ -13,7 +13,7 @@ use Symfony\Component\Console\Question\Question;
 
 class UserController extends Controller
 {
-      public function register(Request $request)
+    public function register(Request $request)
     {
         $validate = Validator::make($request->all(), [
             'name' => 'required|string|max:255',
@@ -31,7 +31,7 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
         ]);
-         
+
 
         return response()->json([
             'message' => 'Utilisateur créé avec succès',
@@ -56,7 +56,7 @@ class UserController extends Controller
             Auth::login($user);
             $accessToken = $user->createToken('authToken')->accessToken;
             $refreshToken = $user->createToken('refreshToken')->accessToken;
-            
+
             return response()->json([
                 "sucesss" => true,
                 'message' => 'Connexion réussi',
@@ -66,26 +66,34 @@ class UserController extends Controller
 
             ]);
         }
-        if(!$user){
+        if (!$user) {
             return response()->json([
-            'message' => 'Aucun utilisateur trouver avec ce mail',
-        ], 400);
+                'message' => 'Aucun utilisateur trouver avec ce mail',
+            ], 400);
         }
         return response()->json([
             'message' => 'Email ou mot de passe incorrect',
         ], 400);
     }
-    public function getReponseofQuestion(Request $request){
+    public function getReponseofQuestion(Request $request)
+    {
         //dd($request->id);
-$reponse = Questions::with('reponses')
-    ->where('id', $request->id)
-    ->get();
-        if($reponse){
+        $reponse = Questions::with('reponses')->where('id', $request->id)->get();
+        if ($reponse) {
             return response()->json([
-            'reponse' => $reponse,
-            'message' => "Rponse en rapport avec l'id de la question",
-        ]);
+                'reponse' => $reponse,
+                'message' => "Rponse en rapport avec l'id de la question",
+            ]);
 
         }
+    }
+    public function logout(Request $request)
+    {
+        $request->user()->token()->revoke();
+
+        return response()->json([
+            "status" => "Success",
+            "message" => "Logout is success"
+        ]);
     }
 }

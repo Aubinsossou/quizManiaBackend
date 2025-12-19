@@ -16,11 +16,11 @@ class Questions extends Model
 
      public function theme(): BelongsTo
     {
-        return $this->belongsTo(Themes::class, 'theme_id');
+        return $this->belongsTo(Themes::class, 'theme_id')->inRandomOrder();
     }
 
      public function reponses(): HasMany
     {
-        return $this->hasMany(Reponses::class, "question_id");
+        return $this->hasMany(Reponses::class, "question_id")->inRandomOrder();
     }
 }

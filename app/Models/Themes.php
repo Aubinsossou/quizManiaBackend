@@ -13,6 +13,6 @@ class Themes extends Model
 
      public function questions(): HasMany
     {
-        return $this->hasMany(Questions::class,"theme_id");
+        return $this->hasMany(Questions::class,"theme_id")->inRandomOrder();
     }
 }

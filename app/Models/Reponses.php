@@ -16,7 +16,7 @@ class Reponses extends Model
 
       public function question(): BelongsTo
     {
-        return $this->belongsTo(Questions::class, 'questions');
+        return $this->belongsTo(Questions::class, 'questions')->inRandomOrder();
     }
     
 }
