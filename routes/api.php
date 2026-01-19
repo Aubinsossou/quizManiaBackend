@@ -45,3 +45,21 @@ Route::prefix("/v1/admin")->group(function () {
         Route::delete("/destroy/{id}", "destroy")->middleware("auth:api");
     });
 });
+
+Route::get('/ping', function () {
+    return response()->json([
+        'status' => 'ok',
+        'version' => 'Laravel 12'
+    ]);
+});
+
+use Illuminate\Support\Facades\DB;
+
+Route::get('/db-test', function () {
+    DB::connection()->getPdo();
+    return ['db' => 'connected'];
+});
+
+Route::options('/{any}', function () {
+    return response()->json([], 200);
+})->where('any', '.*');
