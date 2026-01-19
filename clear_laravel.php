@@ -30,5 +30,5 @@ runArtisan("dump-autoload -o");
 
 // Mode maintenance OFF
 runArtisan("up");
-  
+
 echo "<h3>✅ Nettoyage terminé !</h3>";
